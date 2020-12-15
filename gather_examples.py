@@ -1,6 +1,6 @@
 # USAGE
-# python gather_examples.py --input videos/real.mov --output dataset/real --detector face_detector --skip 1
-# python gather_examples.py --input videos/fake.mp4 --output dataset/fake --detector face_detector --skip 4
+# python gather_examples.py --input videos/real.mov --output dataset/real --detector face_detector --skip 4
+# python gather_examples.py --input videos/fake.mp4 --output dataset/fake --detector face_detector --skip 1
 
 # import the necessary packages
 import numpy as np
@@ -82,6 +82,10 @@ while True:
 			# write the frame to disk
 			p = os.path.sep.join([args["output"],
 				"{}.png".format(saved)])
+			# This code rotates the images by 90 degrees in clockwise diretion
+			# comment the below if condition if required
+			if args["input"] == "videos/real.mov":
+				face = cv2.rotate(face, cv2.cv2.ROTATE_90_CLOCKWISE)
 			cv2.imwrite(p, face)
 			saved += 1
 			print("[INFO] saved {} to disk".format(p))
